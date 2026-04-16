@@ -1,6 +1,7 @@
 from pages.home_page import HomePage
 from selenium import webdriver
 import unittest
+from time import sleep
 
 class BaseTest(unittest.TestCase):
     """
@@ -9,8 +10,9 @@ class BaseTest(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
-        self.driver.get("http://localhost:8080/")
+        self.driver.get("https://automationpractice.techwithjatin.com/")
         self.home_page = HomePage(self.driver)
+
 
     def tearDown(self):
         self.driver.quit()
