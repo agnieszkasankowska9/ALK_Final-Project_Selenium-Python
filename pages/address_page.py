@@ -20,23 +20,15 @@ class Locators:
     ADDITIONAL_INFORMATION = (By.ID, "other")
     ADDRESS_TITLE = (By.ID, "alias")
     SAVE_BUTTON = (By.ID, "submitAddress")
+    NUMBER_VISIBLE_ERRORS = (By.XPATH, '//div[@class="alert alert-danger"]/p')
+    VISIBLE_ERRORS = (By.XPATH, '//div[@class="alert alert-danger"]/ol/li')
+
+
 
 class AddressPage(BasePage):
     """
     Address Page objects
     """
-
-    def get_entered_first_name(self):
-        """
-        Get first name entered during registration
-        """
-        return self.driver.find_element(*Locators.FIRST_NAME).get_attribute("value")
-
-    def get_entered_last_name(self):
-        """
-        Get last name entered during registration
-        """
-        return self.driver.find_element(*Locators.LAST_NAME).get_attribute("value")
 
     def enter_company(self, company):
         """
@@ -62,20 +54,6 @@ class AddressPage(BasePage):
         """
         self.driver.find_element(*Locators.CITY).send_keys(city)
 
-    def select_state(self, state):
-        """
-        Select State
-        """
-        state = Select(self.driver.find_element(*Locators.STATE_SELECT))
-        state.select_by_value(str(state))
-
-    def select_country(self, state):
-        """
-        Select Country
-        """
-        country = Select(self.driver.find_element(*Locators.COUNTRY_SELECT))
-        country.select_by_value(str(country))
-
     def enter_home_phone(self, home_phone):
         """
         Enter Home phone
@@ -94,12 +72,6 @@ class AddressPage(BasePage):
         """
         self.driver.find_element(*Locators.ADDITIONAL_INFORMATION).send_keys(additional_information)
 
-    def get_address_tile(self):
-        """
-        "My address" is added as default address title.
-        """
-        return self.driver.find_element(*Locators.ADDRESS_TITLE).get_attribute("value")
-
     def enter_new_address_tile(self, address_tile):
         """
         Remove a default "My address" title and enter a new one.
@@ -107,6 +79,59 @@ class AddressPage(BasePage):
         self.driver.find_element(*Locators.ADDRESS_TITLE).clear()
         self.driver.find_element(*Locators.ADDRESS_TITLE).send_keys(address_tile)
 
+    def select_state(self, state):
+        """
+        Select State
+        """
+        state = Select(self.driver.find_element(*Locators.STATE_SELECT))
+        state.select_by_value(str(state))
+
+    def select_country(self, state):
+        """
+        Select Country
+        """
+        country = Select(self.driver.find_element(*Locators.COUNTRY_SELECT))
+        country.select_by_value(str(country))
+
+    def click_save_button(self):
+        """
+        Clicks Save button
+        """
+        self.driver.find_element(*Locators.SAVE_BUTTON).click()
+
+    def get_entered_first_name(self):
+        """
+        Get first name entered during registration
+        """
+        return self.driver.find_element(*Locators.FIRST_NAME).get_attribute("value")
+
+    def get_entered_last_name(self):
+        """
+        Get last name entered during registration
+        """
+        return self.driver.find_element(*Locators.LAST_NAME).get_attribute("value")
+
+    def get_address_tile(self):
+        """
+        "My address" added as default.
+        """
+        return self.driver.find_element(*Locators.ADDRESS_TITLE).get_attribute("value")
+
+    def get_number_of_errors_message(self):
+        """
+        Get Number of Errors message
+        """
+        return self.driver.find_element(*Locators.NUMBER_VISIBLE_ERRORS).text
+
+    def get_visible_errors(self):
+        """
+        Return visible errors
+        """
+        all_errors = self.driver.find_elements(*Locators.VISIBLE_ERRORS)
+        visible_errors = []
+        for error in all_errors:
+            visible_errors.append(error.text)
+        return visible_errors
 
 
-
+    # def _verify_page(self):
