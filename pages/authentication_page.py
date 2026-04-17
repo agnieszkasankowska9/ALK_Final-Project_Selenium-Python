@@ -1,6 +1,6 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
-# from pages.create_account_page import CreateAccountPage
+from pages.my_account_page import MyAccountPage
 
 class Locators:
     """
@@ -33,5 +33,4 @@ class AuthenticationPage(BasePage):
         :return: MyAccountPage
         """
         self.driver.find_element(*Locators.SIGN_IN_BUTTON).click()
-
-        # return MyAccountPage(self.driver)
+        return MyAccountPage(self.driver)
