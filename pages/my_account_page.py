@@ -1,5 +1,6 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
+from pages.address_page import AddressPage
 
 class Locators:
     """
@@ -18,4 +19,4 @@ class MyAccountPage(BasePage):
         :return: Address Page object
         """
         self.driver.find_element(*Locators.ADD_MY_FIRST_ADDRESS_BUTTON).click()
-        # return AddressPage (self, driver)
+        return AddressPage (self.driver)
