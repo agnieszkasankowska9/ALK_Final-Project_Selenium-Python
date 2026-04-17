@@ -26,7 +26,6 @@ class AuthenticationPage(BasePage):
         Enter existing user's password to log in
         """
         self.driver.find_element(*Locators.EXISTING_ACCOUNT_PASSWORD).send_keys(password)
-        print(password)
 
     def click_sign_in(self):
         """
