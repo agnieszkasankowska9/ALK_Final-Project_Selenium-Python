@@ -79,19 +79,25 @@ class AddressPage(BasePage):
         self.driver.find_element(*Locators.ADDRESS_TITLE).clear()
         self.driver.find_element(*Locators.ADDRESS_TITLE).send_keys(address_tile)
 
+    def enter_zip_post_code(self, post_code):
+        """
+        Enter Zip/Postal Code
+        """
+        self.driver.find_element(*Locators.ZIP_POSTAL_CODE).send_keys(post_code)
+
     def select_state(self, state):
         """
         Select State
         """
-        state = Select(self.driver.find_element(*Locators.STATE_SELECT))
-        state.select_by_value(str(state))
+        dropdown = Select(self.driver.find_element(*Locators.STATE_SELECT))
+        dropdown.select_by_visible_text(state)
 
-    def select_country(self, state):
+    def select_country(self, country):
         """
         Select Country
         """
-        country = Select(self.driver.find_element(*Locators.COUNTRY_SELECT))
-        country.select_by_value(str(country))
+        dropdown = Select(self.driver.find_element(*Locators.COUNTRY_SELECT))
+        dropdown.select_by_visible_text(country)
 
     def click_save_button(self):
         """
