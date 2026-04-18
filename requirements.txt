@@ -1,3 +1,4 @@
+html-testrunner
 ddt
 Faker>=40.13.0
 selenium>=4.43.0

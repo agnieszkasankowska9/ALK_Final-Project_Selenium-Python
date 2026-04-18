@@ -1,4 +1,4 @@
-TestCaseID,FirstName,LastName,Company,Address,Address2,City,State,PostalCode,Country,HomePhone,MobilePhone,AdditionalInformation,AddressTitle
-206,,,,Sunset Boulevard,100,Beverly Hills,California,,United States,55522233,0123456789,,
-207,,,,Sunset Boulevard,100,Beverly Hills,California,1234,United States,55522233,0123456789,,
-205,,,,Sunset Boulevard,100,Beverly Hills,California,abc,United States,55522233,0123456789,,
+TestCaseID,TestCaseName,FirstName,LastName,Company,Address,Address2,City,State,PostalCode,Country,HomePhone,MobilePhone,AdditionalInformation,AddressTitle
+ID_206,No postal code,,,,Sunset Boulevard,100,Beverly Hills,California,,United States,55522233,0123456789,,
+ID_207,Postal code too short,,,,Sunset Boulevard,100,Beverly Hills,California,1234,United States,55522233,0123456789,,
+ID_208,Invalid signs in postal code,,,,Sunset Boulevard,100,Beverly Hills,California,abc,United States,55522233,0123456789,,

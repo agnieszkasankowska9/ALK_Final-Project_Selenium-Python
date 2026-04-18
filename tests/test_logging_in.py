@@ -1,6 +1,7 @@
 from tests.base_test import BaseTest
 from test_data.log_in_data import *
 from time import sleep
+import unittest
 
 class RegistrationTest(BaseTest):
     def setUp(self):
@@ -8,7 +9,7 @@ class RegistrationTest(BaseTest):
         self.authentication_page = self.home_page.click_sign_in()
         self.driver.implicitly_wait(15)
 
-
+    # @unittest.skip("Temporary skipping")
     def test_log_in(self):
         self.data = LogInData()
         self.driver.implicitly_wait(5)
@@ -19,8 +20,8 @@ class RegistrationTest(BaseTest):
         expected_url = "https://automationpractice.techwithjatin.com/my-account"
         actual_url = self.driver.current_url
         self.assertEqual(expected_url, actual_url)
-        print(expected_url)
-        print(actual_url)
+        print(f"Expected url: {expected_url}")
+        print(f"Actual url: {actual_url}")
 
 
 
