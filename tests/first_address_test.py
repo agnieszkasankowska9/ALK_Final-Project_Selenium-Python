@@ -102,13 +102,33 @@ class FirstAddressTest(BaseTest):
         sleep(3)
 
 
-    # @unittest.skip("Temporary skipping")
+    @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_first_name_negative.csv"))
     @unpack
     def testFirstName(self, testcaseid, firstname, lastname, company, address, address2, city, state, postalcode, country,
-                    homephone, mobilephone, additionalinfo, addresstitle,expectederrors):
+                    homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
         self.my_address_page.enter_new_first_name(firstname)
         self.assertEqual(self.data.lastname, self.my_address_page.get_entered_last_name())
+        self.my_address_page.enter_address(address)
+        self.my_address_page.enter_city(city)
+        self.my_address_page.select_state(state)
+        self.my_address_page.enter_zip_post_code(postalcode)
+        self.my_address_page.select_country(country)
+        self.my_address_page.enter_home_phone(homephone)
+        self.my_address_page.click_save_button()
+        expected_number_of_errors_message = "There is 1 error"
+        actual_number_of_errors_message = self.my_address_page.get_number_of_errors_message()
+        self.assertEqual(expected_number_of_errors_message, actual_number_of_errors_message)
+        visible_errors = self.my_address_page.get_visible_errors()
+        self.assertIn(expectederrors, visible_errors)
+
+    # @unittest.skip("Temporary skipping")
+    @data(*test_data.first_address_data.get_csv_data("test_data/first_address_last_name_negative.csv"))
+    @unpack
+    def testLastName(self, testcaseid, firstname, lastname, company, address, address2, city, state, postalcode, country,
+                    homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
+        self.assertEqual(self.data.firstname, self.my_address_page.get_entered_first_name())
+        self.my_address_page.enter_new_last_name(lastname)
         self.my_address_page.enter_address(address)
         self.my_address_page.enter_city(city)
         self.my_address_page.select_state(state)

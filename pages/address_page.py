@@ -36,6 +36,12 @@ class AddressPage(BasePage):
         self.driver.find_element(*Locators.FIRST_NAME).clear()
         self.driver.find_element(*Locators.FIRST_NAME).send_keys(first_name)
 
+    def enter_new_last_name(self, last_name):
+        """
+        Change visible last name to another last name
+        """
+        self.driver.find_element(*Locators.LAST_NAME).clear()
+        self.driver.find_element(*Locators.LAST_NAME).send_keys(last_name)
 
     def enter_company(self, company):
         """
