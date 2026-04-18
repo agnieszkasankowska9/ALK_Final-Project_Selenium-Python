@@ -16,10 +16,11 @@ class FirstAddressTest(BaseTest):
         self.my_account_page = self.authentication_page.click_sign_in()
         self.driver.implicitly_wait(5)
         self.my_address_page = self.my_account_page.click_add_my_first_address()
+        self.driver.implicitly_wait(5)
 
-    @data(*test_data.first_address_data.get_csv_data("test_data/first_address_data_all.csv"))
+    @data(*test_data.first_address_data.get_csv_data("test_data/first_address_no_city.csv"))
     @unpack
-    def testNoCity(self, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle):
+    def testNoCity(self, testcaseid, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle):
         self.assertEqual(self.data.firstname, self.my_address_page.get_entered_first_name())
         self.assertEqual(self.data.lastname, self.my_address_page.get_entered_last_name())
         self.my_address_page.enter_address(address)
@@ -34,11 +35,11 @@ class FirstAddressTest(BaseTest):
         visible_errors = self.my_address_page.get_visible_errors()
         expected_errors = ["city is required."]
         self.assertCountEqual(expected_errors, visible_errors)
-        sleep(1)
+
 
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_phone_negative.csv"))
     @unpack
-    def testPhone(self, casename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
+    def testPhone(self, testcaseid, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
         self.assertEqual(self.data.firstname, self.my_address_page.get_entered_first_name())
         self.assertEqual(self.data.lastname, self.my_address_page.get_entered_last_name())
         self.my_address_page.enter_address(address)
@@ -54,4 +55,3 @@ class FirstAddressTest(BaseTest):
         self.assertEqual(expected_number_of_errors_message, actual_number_of_errors_message)
         visible_errors = self.my_address_page.get_visible_errors()
         self.assertIn(expectederrors, visible_errors)
-        sleep(2)

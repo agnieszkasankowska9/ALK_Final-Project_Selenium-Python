@@ -1,4 +1,4 @@
-CaseName,FirstName,LastName,Company,Address,Address2,City,State,PostalCode,Country,HomePhone,MobilePhone,AdditionalInformation,AddressTitle,Expected_Errors
-no_phone,Ola,Fasola,New Fasola Company,Sunset Boulevard,100,Beverly Hills,California,90210,United States,,,during working hours,Work address,You must register at least one phone number.
-invalid_home_phone,Krzysztof,Groch,Groszki SA,123 Main St,Apt 4,New York,New York,10001,United States,a,,enter from the back,summer address,phone is invalid.
-invalid_mobile_phone,Anna,Cebula,Onion LTD.,123 Main St,Apt 10,New York,New York,10001,United States,,xyz,,,phone_mobile is invalid.
+TestCaseId,FirstName,LastName,Company,Address,Address2,City,State,PostalCode,Country,HomePhone,MobilePhone,AdditionalInformation,AddressTitle,Expected_Errors
+201,Ola,Fasola,New Fasola Company,Sunset Boulevard,100,Beverly Hills,California,90210,United States,,,during working hours,Work address,You must register at least one phone number.
+202,Krzysztof,Groch,Groszki SA,123 Main St,Apt 4,New York,New York,10001,United States,a,,enter from the back,summer address,phone is invalid.
+203,Anna,Cebula,Onion LTD.,123 Main St,Apt 10,New York,New York,10001,United States,,xyz,,,phone_mobile is invalid.
