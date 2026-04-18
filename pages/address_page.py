@@ -29,6 +29,13 @@ class AddressPage(BasePage):
     """
     Address Page objects
     """
+    def enter_new_first_name(self, first_name):
+        """
+        Change visible first name to another first name
+        """
+        self.driver.find_element(*Locators.FIRST_NAME).clear()
+        self.driver.find_element(*Locators.FIRST_NAME).send_keys(first_name)
+
 
     def enter_company(self, company):
         """
