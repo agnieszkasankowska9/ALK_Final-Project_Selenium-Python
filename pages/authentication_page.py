@@ -1,6 +1,9 @@
-from pages.base_page import BasePage
-from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 from pages.my_account_page import MyAccountPage
+from selenium.webdriver.common.by import By
+from pages.base_page import BasePage
+
 
 class Locators:
     """
@@ -19,18 +22,21 @@ class AuthenticationPage(BasePage):
         """
         Enter existing user's email in order to log in
         """
-        self.driver.find_element(*Locators.EXISTING_ACCOUNT_EMAIL).send_keys(email)
+        self.wait.visible(Locators.EXISTING_ACCOUNT_EMAIL).send_keys(email)
 
     def enter_existing_account_password(self, password):
         """
         Enter existing user's password to log in
         """
-        self.driver.find_element(*Locators.EXISTING_ACCOUNT_PASSWORD).send_keys(password)
+        self.wait.visible(Locators.EXISTING_ACCOUNT_PASSWORD).send_keys(password)
 
     def click_sign_in(self):
         """
         Click Sign In button
         :return: MyAccountPage
         """
-        self.driver.find_element(*Locators.SIGN_IN_BUTTON).click()
+        self.wait.clickable(Locators.SIGN_IN_BUTTON).click()
         return MyAccountPage(self.driver)
+
+    def _verify_page(self):
+        self.wait.visible(Locators.SIGN_IN_BUTTON)

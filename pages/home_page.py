@@ -12,10 +12,11 @@ class HomePage(BasePage):
     """
     Home Page Object
     """
+
     def click_sign_in(self):
         """
         Click sign in and goes to Authentication_Page
         :return: Authentication_Page object
         """
-        self.driver.find_element(*Locators.SIGN_IN_LINK).click()
+        self.wait.clickable(Locators.SIGN_IN_LINK).click()
         return AuthenticationPage(self.driver)

@@ -34,70 +34,70 @@ class AddressPage(BasePage):
         """
         Change visible first name to another first name
         """
-        self.driver.find_element(*Locators.FIRST_NAME).clear()
-        self.driver.find_element(*Locators.FIRST_NAME).send_keys(first_name)
+        self.wait.visible(Locators.FIRST_NAME).clear()
+        self.wait.visible(Locators.FIRST_NAME).send_keys(first_name)
 
     def enter_new_last_name(self, last_name):
         """
         Change visible last name to another last name
         """
-        self.driver.find_element(*Locators.LAST_NAME).clear()
-        self.driver.find_element(*Locators.LAST_NAME).send_keys(last_name)
+        self.wait.visible(Locators.LAST_NAME).clear()
+        self.wait.visible(Locators.LAST_NAME).send_keys(last_name)
 
     def enter_company(self, company):
         """
         Enter Company
         """
-        self.driver.find_element(*Locators.COMPANY).send_keys(company)
+        self.wait.visible(Locators.COMPANY).send_keys(company)
 
     def enter_address(self, address):
         """
         Enter Address - line 1
         """
-        self.driver.find_element(*Locators.ADDRESS).send_keys(address)
+        self.wait.visible(Locators.ADDRESS).send_keys(address)
 
     def enter_address_line_2(self, address2):
         """
         Enter Address - line 2
         """
-        self.driver.find_element(*Locators.ADDRESS_LINE_2).send_keys(address2)
+        self.wait.visible(Locators.ADDRESS_LINE_2).send_keys(address2)
 
     def enter_city(self, city):
         """
         Enter City
         """
-        self.driver.find_element(*Locators.CITY).send_keys(city)
+        self.wait.visible(Locators.CITY).send_keys(city)
 
     def enter_home_phone(self, home_phone):
         """
         Enter Home phone
         """
-        self.driver.find_element(*Locators.HOME_PHONE).send_keys(home_phone)
+        self.wait.visible(Locators.HOME_PHONE).send_keys(home_phone)
 
     def enter_mobile_phone(self, mobile_phone):
         """
         Enter Mobile phone
         """
-        self.driver.find_element(*Locators.MOBILE_PHONE).send_keys(mobile_phone)
+        self.wait.visible(Locators.MOBILE_PHONE).send_keys(mobile_phone)
 
     def enter_additional_information(self, additional_information):
         """
         Enter Additional information
         """
-        self.driver.find_element(*Locators.ADDITIONAL_INFORMATION).send_keys(additional_information)
+        self.wait.visible(Locators.ADDITIONAL_INFORMATION).send_keys(additional_information)
 
     def enter_new_address_tile(self, address_tile):
         """
         Remove a default "My address" title and enter a new one.
         """
-        self.driver.find_element(*Locators.ADDRESS_TITLE).clear()
-        self.driver.find_element(*Locators.ADDRESS_TITLE).send_keys(address_tile)
+        self.wait.visible(Locators.ADDRESS_TITLE).clear()
+        self.wait.visible(Locators.ADDRESS_TITLE).send_keys(address_tile)
 
     def enter_zip_post_code(self, post_code):
         """
         Enter Zip/Postal Code
         """
-        self.driver.find_element(*Locators.ZIP_POSTAL_CODE).send_keys(post_code)
+        self.wait.visible(Locators.ZIP_POSTAL_CODE).send_keys(post_code)
 
     def select_state(self, state):
         """
@@ -117,32 +117,32 @@ class AddressPage(BasePage):
         """
         Clicks Save button
         """
-        self.driver.find_element(*Locators.SAVE_BUTTON).click()
-        return AddressesPage (self.driver)
+        self.wait.clickable(Locators.SAVE_BUTTON).click()
+        return AddressesPage(self.driver)
 
     def get_entered_first_name(self):
         """
         Get first name entered during registration
         """
-        return self.driver.find_element(*Locators.FIRST_NAME).get_attribute("value")
+        return self.wait.visible(Locators.FIRST_NAME).get_attribute("value")
 
     def get_entered_last_name(self):
         """
         Get last name entered during registration
         """
-        return self.driver.find_element(*Locators.LAST_NAME).get_attribute("value")
+        return self.wait.visible(Locators.LAST_NAME).get_attribute("value")
 
     def get_address_tile(self):
         """
-        Get address title. "My address" added as default.
+        Get address title.
         """
-        return self.driver.find_element(*Locators.ADDRESS_TITLE).get_attribute("value")
+        return self.wait.visible(Locators.ADDRESS_TITLE).get_attribute("value")
 
     def get_number_of_errors_message(self):
         """
         Get Number of Errors message
         """
-        return self.driver.find_element(*Locators.NUMBER_VISIBLE_ERRORS).text
+        return self.wait.visible(Locators.NUMBER_VISIBLE_ERRORS).text
 
     def get_visible_errors(self):
         """
@@ -154,5 +154,3 @@ class AddressPage(BasePage):
             visible_errors.append(error.text)
         return visible_errors
 
-
-    # def _verify_page(self):

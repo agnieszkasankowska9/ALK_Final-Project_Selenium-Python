@@ -1,5 +1,6 @@
 from pages.home_page import HomePage
 from selenium import webdriver
+from pages.addresses_page import AddressesPage
 import unittest
 from time import sleep
 
@@ -16,3 +17,4 @@ class BaseTest(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+
