@@ -1,4 +1,5 @@
 from selenium.webdriver.support.select import Select
+from pages.addresses_page import AddressesPage
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 
@@ -117,6 +118,7 @@ class AddressPage(BasePage):
         Clicks Save button
         """
         self.driver.find_element(*Locators.SAVE_BUTTON).click()
+        return AddressesPage (self.driver)
 
     def get_entered_first_name(self):
         """
@@ -132,7 +134,7 @@ class AddressPage(BasePage):
 
     def get_address_tile(self):
         """
-        "My address" added as default.
+        Get address title. "My address" added as default.
         """
         return self.driver.find_element(*Locators.ADDRESS_TITLE).get_attribute("value")
 

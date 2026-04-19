@@ -1,12 +1,14 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 from pages.address_page import AddressPage
+from pages.addresses_page import AddressesPage
 
 class Locators:
     """
     MyAccount Page locators
     """
     ADD_MY_FIRST_ADDRESS_BUTTON = (By.XPATH, '//*[@title="Add my first address"]')
+    MY_ADDRESSES_BUTTON = (By.XPATH, '//*[@title="Addresses"]')
 
 
 class MyAccountPage(BasePage):
@@ -20,3 +22,18 @@ class MyAccountPage(BasePage):
         """
         self.driver.find_element(*Locators.ADD_MY_FIRST_ADDRESS_BUTTON).click()
         return AddressPage (self.driver)
+
+    def is_add_my_first_address_visible(self):
+        """
+        Check if "Add my first address" button is visible
+        """
+        return len(self.driver.find_elements(*Locators.ADD_MY_FIRST_ADDRESS_BUTTON)) > 0
+
+
+    def click_my_addresses(self):
+        """
+        Click My Addresses button
+        :return: My addresses Page object
+        """
+        self.driver.find_element(*Locators.MY_ADDRESSES_BUTTON).click()
+        return AddressesPage (self.driver)

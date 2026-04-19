@@ -17,137 +17,180 @@ class FirstAddressTest(BaseTest):
         self.authentication_page.enter_existing_account_password(self.data.password)
         self.my_account_page = self.authentication_page.click_sign_in()
         self.driver.implicitly_wait(5)
-        self.my_address_page = self.my_account_page.click_add_my_first_address()
+        if not self.my_account_page.is_add_my_first_address_visible():
+            self.my_addresses_page = self.my_account_page.click_my_addresses()
+            self.driver.implicitly_wait(5)
+            self.my_addresses_page.delete_first_address()
+            self.driver.implicitly_wait(5)
+            self.my_account_page = self.my_addresses_page.go_back_to_my_account()
+        self.address_page = self.my_account_page.click_add_my_first_address()
         self.driver.implicitly_wait(5)
 
-    # @unittest.skip("Temporary skipping")
+
+    @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_city_negative.csv"))
     @unpack
     def testNoCity(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle):
         self._testMethodName = f"{testcaseid}_{testcasename}"
-        self.assertEqual(self.data.firstname, self.my_address_page.get_entered_first_name())
-        self.assertEqual(self.data.lastname, self.my_address_page.get_entered_last_name())
-        self.my_address_page.enter_address(address)
-        self.my_address_page.select_state(state)
-        self.my_address_page.enter_zip_post_code(postalcode)
-        self.my_address_page.select_country(country)
-        self.my_address_page.enter_home_phone(homephone)
-        self.my_address_page.click_save_button()
+        self.assertEqual(self.data.firstname, self.address_page.get_entered_first_name())
+        self.assertEqual(self.data.lastname, self.address_page.get_entered_last_name())
+        self.address_page.enter_address(address)
+        self.address_page.select_state(state)
+        self.address_page.enter_zip_post_code(postalcode)
+        self.address_page.select_country(country)
+        self.address_page.enter_home_phone(homephone)
+        self.address_page.click_save_button()
         expected_number_of_errors_message = "There is 1 error"
-        actual_number_of_errors_message = self.my_address_page.get_number_of_errors_message()
+        actual_number_of_errors_message = self.address_page.get_number_of_errors_message()
         self.assertEqual(expected_number_of_errors_message, actual_number_of_errors_message)
-        visible_errors = self.my_address_page.get_visible_errors()
+        visible_errors = self.address_page.get_visible_errors()
         expected_errors = ["city is required."]
         self.assertCountEqual(expected_errors, visible_errors)
 
-    # @unittest.skip("Temporary skipping")
+    @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_phone_negative.csv"))
     @unpack
     def testPhone(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
         self._testMethodName = f"{testcaseid}_{testcasename}"
-        self.assertEqual(self.data.firstname, self.my_address_page.get_entered_first_name())
-        self.assertEqual(self.data.lastname, self.my_address_page.get_entered_last_name())
-        self.my_address_page.enter_address(address)
-        self.my_address_page.enter_city(city)
-        self.my_address_page.select_state(state)
-        self.my_address_page.enter_zip_post_code(postalcode)
-        self.my_address_page.select_country(country)
-        self.my_address_page.enter_home_phone(homephone)
-        self.my_address_page.enter_mobile_phone(mobilephone)
-        self.my_address_page.click_save_button()
+        self.assertEqual(self.data.firstname, self.address_page.get_entered_first_name())
+        self.assertEqual(self.data.lastname, self.address_page.get_entered_last_name())
+        self.address_page.enter_address(address)
+        self.address_page.enter_city(city)
+        self.address_page.select_state(state)
+        self.address_page.enter_zip_post_code(postalcode)
+        self.address_page.select_country(country)
+        self.address_page.enter_home_phone(homephone)
+        self.address_page.enter_mobile_phone(mobilephone)
+        self.address_page.click_save_button()
         expected_number_of_errors_message = "There is 1 error"
-        actual_number_of_errors_message = self.my_address_page.get_number_of_errors_message()
+        actual_number_of_errors_message = self.address_page.get_number_of_errors_message()
         self.assertEqual(expected_number_of_errors_message, actual_number_of_errors_message)
-        visible_errors = self.my_address_page.get_visible_errors()
+        visible_errors = self.address_page.get_visible_errors()
         self.assertIn(expectederrors, visible_errors)
 
-
-    # @unittest.skip("Temporary skipping")
+    @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_state_negative.csv"))
     @unpack
     def testNoState(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle):
         self._testMethodName = f"{testcaseid}_{testcasename}"
-        self.assertEqual(self.data.firstname, self.my_address_page.get_entered_first_name())
-        self.assertEqual(self.data.lastname, self.my_address_page.get_entered_last_name())
-        self.my_address_page.enter_address(address)
-        self.my_address_page.enter_city(city)
-        self.my_address_page.enter_zip_post_code(postalcode)
-        self.my_address_page.select_country(country)
-        self.my_address_page.enter_home_phone(homephone)
-        self.my_address_page.click_save_button()
+        self.assertEqual(self.data.firstname, self.address_page.get_entered_first_name())
+        self.assertEqual(self.data.lastname, self.address_page.get_entered_last_name())
+        self.address_page.enter_address(address)
+        self.address_page.enter_city(city)
+        self.address_page.enter_zip_post_code(postalcode)
+        self.address_page.select_country(country)
+        self.address_page.enter_home_phone(homephone)
+        self.address_page.click_save_button()
         expected_number_of_errors_message = "There is 1 error"
-        actual_number_of_errors_message = self.my_address_page.get_number_of_errors_message()
+        actual_number_of_errors_message = self.address_page.get_number_of_errors_message()
         self.assertEqual(expected_number_of_errors_message, actual_number_of_errors_message)
-        visible_errors = self.my_address_page.get_visible_errors()
+        visible_errors = self.address_page.get_visible_errors()
         expected_errors = ["This country requires you to chose a State."]
         self.assertCountEqual(expected_errors, visible_errors)
-        sleep(1)
 
-    # @unittest.skip("Temporary skipping")
+    @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_zip_postal_code_negative.csv"))
     @unpack
-    def testZipPostalCode(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country,
-                    homephone, mobilephone, additionalinfo, addresstitle):
+    def testZipPostalCode(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle):
         self._testMethodName = f"{testcaseid}_{testcasename}"
-        self.assertEqual(self.data.firstname, self.my_address_page.get_entered_first_name())
-        self.assertEqual(self.data.lastname, self.my_address_page.get_entered_last_name())
-        self.my_address_page.enter_address(address)
-        self.my_address_page.enter_city(city)
-        self.my_address_page.select_state(state)
-        self.my_address_page.enter_zip_post_code(postalcode)
-        self.my_address_page.select_country(country)
-        self.my_address_page.enter_home_phone(homephone)
-        self.my_address_page.click_save_button()
+        self.assertEqual(self.data.firstname, self.address_page.get_entered_first_name())
+        self.assertEqual(self.data.lastname, self.address_page.get_entered_last_name())
+        self.address_page.enter_address(address)
+        self.address_page.enter_city(city)
+        self.address_page.select_state(state)
+        self.address_page.enter_zip_post_code(postalcode)
+        self.address_page.select_country(country)
+        self.address_page.enter_home_phone(homephone)
+        self.address_page.click_save_button()
         expected_number_of_errors_message = "There is 1 error"
-        actual_number_of_errors_message = self.my_address_page.get_number_of_errors_message()
+        actual_number_of_errors_message = self.address_page.get_number_of_errors_message()
         self.assertEqual(expected_number_of_errors_message, actual_number_of_errors_message)
-        visible_errors = self.my_address_page.get_visible_errors()
+        visible_errors = self.address_page.get_visible_errors()
         expected_errors = ["The Zip/Postal code you've entered is invalid. It must follow this format: 00000"]
         self.assertCountEqual(expected_errors, visible_errors)
-        sleep(3)
 
-
-    # @unittest.skip("Temporary skipping")
+    @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_first_name_negative.csv"))
     @unpack
-    def testFirstName(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country,
-                    homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
+    def testFirstName(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
         self._testMethodName = f"{testcaseid}_{testcasename}"
-        self.my_address_page.enter_new_first_name(firstname)
-        self.assertEqual(self.data.lastname, self.my_address_page.get_entered_last_name())
-        self.my_address_page.enter_address(address)
-        self.my_address_page.enter_city(city)
-        self.my_address_page.select_state(state)
-        self.my_address_page.enter_zip_post_code(postalcode)
-        self.my_address_page.select_country(country)
-        self.my_address_page.enter_home_phone(homephone)
-        self.my_address_page.click_save_button()
+        self.address_page.enter_new_first_name(firstname)
+        self.assertEqual(self.data.lastname, self.address_page.get_entered_last_name())
+        self.address_page.enter_address(address)
+        self.address_page.enter_city(city)
+        self.address_page.select_state(state)
+        self.address_page.enter_zip_post_code(postalcode)
+        self.address_page.select_country(country)
+        self.address_page.enter_home_phone(homephone)
+        self.address_page.click_save_button()
         expected_number_of_errors_message = "There is 1 error"
-        actual_number_of_errors_message = self.my_address_page.get_number_of_errors_message()
+        actual_number_of_errors_message = self.address_page.get_number_of_errors_message()
         self.assertEqual(expected_number_of_errors_message, actual_number_of_errors_message)
-        visible_errors = self.my_address_page.get_visible_errors()
+        visible_errors = self.address_page.get_visible_errors()
+        self.assertIn(expectederrors, visible_errors)
+
+    @unittest.skip("Temporary skipping")
+    @data(*test_data.first_address_data.get_csv_data("test_data/first_address_last_name_negative.csv"))
+    @unpack
+    def testLastName(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
+        self._testMethodName = f"{testcaseid}_{testcasename}"
+        self.assertEqual(self.data.firstname, self.address_page.get_entered_first_name())
+        self.address_page.enter_new_last_name(lastname)
+        self.address_page.enter_address(address)
+        self.address_page.enter_city(city)
+        self.address_page.select_state(state)
+        self.address_page.enter_zip_post_code(postalcode)
+        self.address_page.select_country(country)
+        self.address_page.enter_home_phone(homephone)
+        self.address_page.click_save_button()
+        expected_number_of_errors_message = "There is 1 error"
+        actual_number_of_errors_message = self.address_page.get_number_of_errors_message()
+        self.assertEqual(expected_number_of_errors_message, actual_number_of_errors_message)
+        visible_errors = self.address_page.get_visible_errors()
         self.assertIn(expectederrors, visible_errors)
 
     # @unittest.skip("Temporary skipping")
-    @data(*test_data.first_address_data.get_csv_data("test_data/first_address_last_name_negative.csv"))
+    @data(*test_data.first_address_data.get_csv_data("test_data/first_address_data_positive.csv"))
     @unpack
-    def testLastName(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country,
-                    homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
+    def test_add_address_success(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle):
         self._testMethodName = f"{testcaseid}_{testcasename}"
-        self.assertEqual(self.data.firstname, self.my_address_page.get_entered_first_name())
-        self.my_address_page.enter_new_last_name(lastname)
-        self.my_address_page.enter_address(address)
-        self.my_address_page.enter_city(city)
-        self.my_address_page.select_state(state)
-        self.my_address_page.enter_zip_post_code(postalcode)
-        self.my_address_page.select_country(country)
-        self.my_address_page.enter_home_phone(homephone)
-        self.my_address_page.click_save_button()
-        expected_number_of_errors_message = "There is 1 error"
-        actual_number_of_errors_message = self.my_address_page.get_number_of_errors_message()
-        self.assertEqual(expected_number_of_errors_message, actual_number_of_errors_message)
-        visible_errors = self.my_address_page.get_visible_errors()
-        self.assertIn(expectederrors, visible_errors)
+        self.assertEqual(self.data.firstname, self.address_page.get_entered_first_name())
+        self.assertEqual(self.data.lastname, self.address_page.get_entered_last_name())
+        self.address_page.enter_company(company)
+        self.address_page.enter_address(address)
+        self.address_page.enter_address_line_2(address2)
+        self.address_page.enter_city(city)
+        self.address_page.select_state(state)
+        self.address_page.enter_zip_post_code(postalcode)
+        self.address_page.select_country(country)
+        self.address_page.enter_home_phone(homephone)
+        self.address_page.enter_mobile_phone(mobilephone)
+        self.address_page.enter_additional_information(additionalinfo)
+        self.address_page.enter_new_address_tile(addresstitle)
+        self.my_addresses_page = self.address_page.click_save_button()
+        self.driver.implicitly_wait(5)
+        expected_url = "https://automationpractice.techwithjatin.com/addresses"
+        actual_url = self.driver.current_url
+        self.assertEqual(expected_url, actual_url)
+        self.assertEqual(addresstitle.upper(), self.my_addresses_page.get_added_address_tile())
+        self.assertEqual(company, self.my_addresses_page.get_added_company())
+        self.assertEqual(address, self.my_addresses_page.get_added_address())
+        self.assertEqual(address2, self.my_addresses_page.get_added_address_line_2())
+        self.assertEqual(city+",", self.my_addresses_page.get_added_city())
+        self.assertEqual(state, self.my_addresses_page.get_added_state())
+        self.assertEqual(postalcode, self.my_addresses_page.get_added_zip_postal_code())
+        self.assertEqual(country, self.my_addresses_page.get_added_country())
+        self.assertEqual(homephone, self.my_addresses_page.get_added_home_phone())
+        self.assertEqual(mobilephone, self.my_addresses_page.get_added_mobile_phone())
+
+
+        # cleanup
+        # self.addCleanup(lambda: self.my_addresses_page.delete_first_address())
+        # if self.my_addresses_page.is_delete_button_visible():
+        #     self.my_addresses_page.delete_first_address()
+
+
+
 
 if __name__ == "__main__":
     unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='reports'))
