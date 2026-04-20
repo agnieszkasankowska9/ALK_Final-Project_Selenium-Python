@@ -1,7 +1,6 @@
 from tests.base_test import BaseTest
 from test_data.log_in_data import *
-from time import sleep
-import unittest
+
 
 class RegistrationTest(BaseTest):
     def setUp(self):
@@ -9,8 +8,9 @@ class RegistrationTest(BaseTest):
         self.authentication_page = self.home_page.click_sign_in()
         self.driver.implicitly_wait(15)
 
-    @unittest.skip("Temporary skipping")
+    # @unittest.skip("Temporary skipping")
     def test_log_in(self):
+        self._testMethodName = f"ID_101_Test login in"
         self.data = LogInData()
         self.driver.implicitly_wait(5)
         self.authentication_page.enter_existing_account_email(self.data.email)

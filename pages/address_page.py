@@ -115,13 +115,6 @@ class AddressPage(BasePage):
         dropdown = Select(self.driver.find_element(*Locators.COUNTRY_SELECT))
         dropdown.select_by_visible_text(country)
 
-    # def click_save_button(self):
-    #     """
-    #     Clicks Save button
-    #     """
-    #     self.wait.clickable(Locators.SAVE_BUTTON).click()
-    #     return AddressesPage(self.driver)
-
     def click_save_button(self):
         self.driver.find_element(*Locators.SAVE_BUTTON).click()
 
@@ -130,7 +123,6 @@ class AddressPage(BasePage):
             return self
         except:
             return AddressesPage(self.driver)
-
 
     def get_account_name(self):
         """
@@ -172,6 +164,6 @@ class AddressPage(BasePage):
             visible_errors.append(error.text)
         return visible_errors
 
-    # def _verify_page(self):
-    #     assert "To add a new address" in self.wait.visible(Locators.INFO_TITLE).text
+    def _verify_page(self):
+        assert "To add a new address" in self.wait.visible(Locators.INFO_TITLE).text
 

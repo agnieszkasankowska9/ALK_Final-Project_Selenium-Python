@@ -1,5 +1,3 @@
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 from pages.my_account_page import MyAccountPage
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage

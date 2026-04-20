@@ -1,4 +1,3 @@
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from pages.authentication_page import AuthenticationPage
 from selenium.webdriver.common.by import By

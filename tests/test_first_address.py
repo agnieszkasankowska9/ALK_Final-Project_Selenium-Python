@@ -29,8 +29,6 @@ class FirstAddressTest(BaseTest):
     @unpack
     def testNoCity(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle):
         self._testMethodName = f"{testcaseid}_{testcasename}"
-        # full_name = self.address_page.get_entered_first_name() + " " + self.address_page.get_entered_last_name()
-        # self.assertEqual(full_name, self.address_page.get_account_name())
         self.address_page.enter_address(address)
         self.address_page.select_state(state)
         self.address_page.enter_zip_post_code(postalcode)
@@ -44,7 +42,7 @@ class FirstAddressTest(BaseTest):
         expected_errors = ["city is required."]
         self.assertCountEqual(expected_errors, visible_errors)
 
-    @unittest.skip("Temporary skipping")
+    # @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_phone_negative.csv"))
     @unpack
     def testPhone(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
@@ -63,7 +61,7 @@ class FirstAddressTest(BaseTest):
         visible_errors = self.address_page.get_visible_errors()
         self.assertIn(expectederrors, visible_errors)
 
-    @unittest.skip("Temporary skipping")
+    # @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_state_negative.csv"))
     @unpack
     def testNoState(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle):
@@ -81,7 +79,7 @@ class FirstAddressTest(BaseTest):
         expected_errors = ["This country requires you to chose a State."]
         self.assertCountEqual(expected_errors, visible_errors)
 
-    @unittest.skip("Temporary skipping")
+    # @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_zip_postal_code_negative.csv"))
     @unpack
     def testZipPostalCode(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle):
@@ -100,7 +98,7 @@ class FirstAddressTest(BaseTest):
         expected_errors = ["The Zip/Postal code you've entered is invalid. It must follow this format: 00000"]
         self.assertCountEqual(expected_errors, visible_errors)
 
-    @unittest.skip("Temporary skipping")
+    # @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_first_name_negative.csv"))
     @unpack
     def testFirstName(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
@@ -119,7 +117,7 @@ class FirstAddressTest(BaseTest):
         visible_errors = self.address_page.get_visible_errors()
         self.assertIn(expectederrors, visible_errors)
 
-    @unittest.skip("Temporary skipping")
+    # @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_last_name_negative.csv"))
     @unpack
     def testLastName(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
