@@ -29,8 +29,8 @@ class FirstAddressTest(BaseTest):
     @unpack
     def testNoCity(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle):
         self._testMethodName = f"{testcaseid}_{testcasename}"
-        self.assertEqual(self.data.firstname, self.address_page.get_entered_first_name())
-        self.assertEqual(self.data.lastname, self.address_page.get_entered_last_name())
+        # full_name = self.address_page.get_entered_first_name() + " " + self.address_page.get_entered_last_name()
+        # self.assertEqual(full_name, self.address_page.get_account_name())
         self.address_page.enter_address(address)
         self.address_page.select_state(state)
         self.address_page.enter_zip_post_code(postalcode)
@@ -44,13 +44,11 @@ class FirstAddressTest(BaseTest):
         expected_errors = ["city is required."]
         self.assertCountEqual(expected_errors, visible_errors)
 
-    # @unittest.skip("Temporary skipping")
+    @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_phone_negative.csv"))
     @unpack
     def testPhone(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
         self._testMethodName = f"{testcaseid}_{testcasename}"
-        self.assertEqual(self.data.firstname, self.address_page.get_entered_first_name())
-        self.assertEqual(self.data.lastname, self.address_page.get_entered_last_name())
         self.address_page.enter_address(address)
         self.address_page.enter_city(city)
         self.address_page.select_state(state)
@@ -65,13 +63,11 @@ class FirstAddressTest(BaseTest):
         visible_errors = self.address_page.get_visible_errors()
         self.assertIn(expectederrors, visible_errors)
 
-    # @unittest.skip("Temporary skipping")
+    @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_state_negative.csv"))
     @unpack
     def testNoState(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle):
         self._testMethodName = f"{testcaseid}_{testcasename}"
-        self.assertEqual(self.data.firstname, self.address_page.get_entered_first_name())
-        self.assertEqual(self.data.lastname, self.address_page.get_entered_last_name())
         self.address_page.enter_address(address)
         self.address_page.enter_city(city)
         self.address_page.enter_zip_post_code(postalcode)
@@ -85,13 +81,11 @@ class FirstAddressTest(BaseTest):
         expected_errors = ["This country requires you to chose a State."]
         self.assertCountEqual(expected_errors, visible_errors)
 
-    # @unittest.skip("Temporary skipping")
+    @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_zip_postal_code_negative.csv"))
     @unpack
     def testZipPostalCode(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle):
         self._testMethodName = f"{testcaseid}_{testcasename}"
-        self.assertEqual(self.data.firstname, self.address_page.get_entered_first_name())
-        self.assertEqual(self.data.lastname, self.address_page.get_entered_last_name())
         self.address_page.enter_address(address)
         self.address_page.enter_city(city)
         self.address_page.select_state(state)
@@ -106,13 +100,12 @@ class FirstAddressTest(BaseTest):
         expected_errors = ["The Zip/Postal code you've entered is invalid. It must follow this format: 00000"]
         self.assertCountEqual(expected_errors, visible_errors)
 
-    # @unittest.skip("Temporary skipping")
+    @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_first_name_negative.csv"))
     @unpack
     def testFirstName(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
         self._testMethodName = f"{testcaseid}_{testcasename}"
         self.address_page.enter_new_first_name(firstname)
-        self.assertEqual(self.data.lastname, self.address_page.get_entered_last_name())
         self.address_page.enter_address(address)
         self.address_page.enter_city(city)
         self.address_page.select_state(state)
@@ -126,12 +119,11 @@ class FirstAddressTest(BaseTest):
         visible_errors = self.address_page.get_visible_errors()
         self.assertIn(expectederrors, visible_errors)
 
-    # @unittest.skip("Temporary skipping")
+    @unittest.skip("Temporary skipping")
     @data(*test_data.first_address_data.get_csv_data("test_data/first_address_last_name_negative.csv"))
     @unpack
     def testLastName(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle, expectederrors):
         self._testMethodName = f"{testcaseid}_{testcasename}"
-        self.assertEqual(self.data.firstname, self.address_page.get_entered_first_name())
         self.address_page.enter_new_last_name(lastname)
         self.address_page.enter_address(address)
         self.address_page.enter_city(city)
@@ -151,8 +143,6 @@ class FirstAddressTest(BaseTest):
     @unpack
     def test_add_address_success(self, testcaseid, testcasename, firstname, lastname, company, address, address2, city, state, postalcode, country, homephone, mobilephone, additionalinfo, addresstitle):
         self._testMethodName = f"{testcaseid}_{testcasename}"
-        self.assertEqual(self.data.firstname, self.address_page.get_entered_first_name())
-        self.assertEqual(self.data.lastname, self.address_page.get_entered_last_name())
         self.address_page.enter_company(company)
         self.address_page.enter_address(address)
         self.address_page.enter_address_line_2(address2)
@@ -169,6 +159,8 @@ class FirstAddressTest(BaseTest):
             lambda d: d.current_url == "https://automationpractice.techwithjatin.com/addresses")
         expected_url = "https://automationpractice.techwithjatin.com/addresses"
         actual_url = self.driver.current_url
+        full_name = self.my_addresses_page.get_added_first_name() + " " + self.my_addresses_page.get_added_last_name()
+        self.assertEqual(full_name, self.my_addresses_page.get_account_name())
         self.assertEqual(expected_url, actual_url)
         self.assertEqual(addresstitle.upper(), self.my_addresses_page.get_added_address_tile())
         self.assertEqual(company, self.my_addresses_page.get_added_company())

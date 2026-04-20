@@ -8,6 +8,8 @@ class Locators:
     """
     Addresses Page elements Locators
     """
+    ADDED_FIRST_NAME = (By.XPATH, '//*[@class="address_name"][1]')
+    ADDED_LAST_NAME = (By.XPATH, '//*[@class="address_name"][2]')
     ADDED_ADDRESS_TITLE = (By.XPATH, '//*[@class="page-subheading"]')
     ADDED_COMPANY = (By.XPATH, '//*[@class="address_company"]')
     ADDED_ADDRESS = (By.XPATH, '//*[@class="address_address1"]')
@@ -20,6 +22,8 @@ class Locators:
     ADDED_MOBILE_PHONE = (By.XPATH, '//*[@class="last_item item box"]/li[8]/span')
     DELETE_BUTTON = (By.XPATH, '//*[@title="Delete"]')
     BACK_TO_YOUR_ACCOUNT = (By.XPATH, '//*[@id="center_column"]/ul/li[1]/a')
+    PAGE_HEADING = (By.XPATH, '//*[@class="page-heading"]')
+    ACCOUNT_NAME = (By.XPATH, '//*[@title="View my customer account"]/span')
 
 
 class AddressesPage(BasePage):
@@ -36,11 +40,29 @@ class AddressesPage(BasePage):
         alert = wait.until(EC.alert_is_present())
         alert.accept()
 
+    def get_account_name(self):
+        """
+        Get visible account name = First name + Last name
+        """
+        return self.wait.visible(Locators.ACCOUNT_NAME).text
+
     def get_added_address_tile(self):
         """
         Get added address title
         """
         return self.wait.visible(Locators.ADDED_ADDRESS_TITLE).text
+
+    def get_added_first_name(self):
+        """
+        Get added first name
+        """
+        return self.wait.visible(Locators.ADDED_FIRST_NAME).text
+
+    def get_added_last_name(self):
+        """
+        Get added last name
+        """
+        return self.wait.visible(Locators.ADDED_LAST_NAME).text
 
     def get_added_company(self):
         """
@@ -109,3 +131,8 @@ class AddressesPage(BasePage):
         Check if Delete button next to First added address is visible
         """
         return len(self.driver.find_elements(*Locators.DELETE_BUTTON)) > 0
+
+    def _verify_page(self):
+        text = self.wait.visible(Locators.PAGE_HEADING).text
+        assert "my addresses" in text.lower()
+

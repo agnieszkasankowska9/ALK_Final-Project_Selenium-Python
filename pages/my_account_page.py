@@ -1,7 +1,8 @@
-from pages.base_page import BasePage
+from pages.addresses_page import AddressesPage
 from selenium.webdriver.common.by import By
 from pages.address_page import AddressPage
-from pages.addresses_page import AddressesPage
+from pages.base_page import BasePage
+
 
 class Locators:
     """

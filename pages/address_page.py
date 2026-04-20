@@ -23,6 +23,8 @@ class Locators:
     SAVE_BUTTON = (By.ID, "submitAddress")
     NUMBER_VISIBLE_ERRORS = (By.XPATH, '//div[@class="alert alert-danger"]/p')
     VISIBLE_ERRORS = (By.XPATH, '//div[@class="alert alert-danger"]/ol/li')
+    INFO_TITLE = (By.XPATH, '//*[@class="info-title"]')
+    ACCOUNT_NAME = (By.XPATH, '//*[@title="View my customer account"]/span')
 
 
 
@@ -113,12 +115,28 @@ class AddressPage(BasePage):
         dropdown = Select(self.driver.find_element(*Locators.COUNTRY_SELECT))
         dropdown.select_by_visible_text(country)
 
+    # def click_save_button(self):
+    #     """
+    #     Clicks Save button
+    #     """
+    #     self.wait.clickable(Locators.SAVE_BUTTON).click()
+    #     return AddressesPage(self.driver)
+
     def click_save_button(self):
+        self.driver.find_element(*Locators.SAVE_BUTTON).click()
+
+        try:
+            self.get_number_of_errors_message()
+            return self
+        except:
+            return AddressesPage(self.driver)
+
+
+    def get_account_name(self):
         """
-        Clicks Save button
+        Get visible account name = First name + Last name
         """
-        self.wait.clickable(Locators.SAVE_BUTTON).click()
-        return AddressesPage(self.driver)
+        return self.wait.visible(Locators.ACCOUNT_NAME).text
 
     def get_entered_first_name(self):
         """
@@ -153,4 +171,7 @@ class AddressPage(BasePage):
         for error in all_errors:
             visible_errors.append(error.text)
         return visible_errors
+
+    # def _verify_page(self):
+    #     assert "To add a new address" in self.wait.visible(Locators.INFO_TITLE).text
 

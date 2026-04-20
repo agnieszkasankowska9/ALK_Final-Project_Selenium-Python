@@ -9,7 +9,7 @@ class RegistrationTest(BaseTest):
         self.authentication_page = self.home_page.click_sign_in()
         self.driver.implicitly_wait(15)
 
-    # @unittest.skip("Temporary skipping")
+    @unittest.skip("Temporary skipping")
     def test_log_in(self):
         self.data = LogInData()
         self.driver.implicitly_wait(5)

@@ -1,6 +1,8 @@
-from pages.base_page import BasePage
-from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 from pages.authentication_page import AuthenticationPage
+from selenium.webdriver.common.by import By
+from pages.base_page import BasePage
 
 class Locators:
     """
@@ -20,3 +22,6 @@ class HomePage(BasePage):
         """
         self.wait.clickable(Locators.SIGN_IN_LINK).click()
         return AuthenticationPage(self.driver)
+
+    def _verify_page(self):
+        WebDriverWait(self.driver, 10).until(lambda d: d.title.startswith("Automation Practice"))
