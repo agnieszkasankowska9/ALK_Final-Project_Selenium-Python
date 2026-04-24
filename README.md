@@ -19,8 +19,9 @@ Wymagania wstępne:
 - [Selenium WebDriver](https://www.selenium.dev/downloads/)
 
 Requirements:
+```bash
 pip install -r requirements.txt
-
+```
 
 Uruchomienie wszystkiech testów:
 run_tests.py
